@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Tap</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+    <h1>Welcome!</h1>
+    <p>Your Points: <span id="points">{{ points }}</span></p>
+    <img id="tap-photo" src="https://via.placeholder.com/300" alt="Tap to earn points" style="cursor: pointer;">
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const tapPhoto = document.getElementById('tap-photo');
+    const pointsDisplay = document.getElementById('points');
+
+    tapPhoto.addEventListener('click', async () => {
+        const response = await fetch('/tap');
+        const data = await response.json();
+        pointsDisplay.textContent = data.points;
+    });
+});
+      
+  </script>
+</body>
+</html>
